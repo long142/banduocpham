@@ -1,0 +1,97 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+	<configSections>
+		
+		<!--url rewrite-->
+		<section name="urlrewritingnet" requirePermission="false" type="UrlRewritingNet.Configuration.UrlRewriteSection, UrlRewritingNet.UrlRewriter"/>
+	</configSections>
+	<!--url rewrite-->
+	<urlrewritingnet rewriteOnlyVirtualUrls="true" contextItemsPrefix="QueryString" defaultProvider="RegEx" xmlns="http://www.urlrewriting.net/schemas/config/2006/07">
+		<rewrites>
+			<!--<add name="trangchu" virtualUrl="^~/trang-chu.aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/TrangChu.aspx" ignoreCase="true"/>
+
+			<add name="chuyenmuc" virtualUrl="^~/chuyen-muc-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/chuyenMuc.aspx?ChuyenMucID=$1" ignoreCase="true"/>
+			<add name="chitiettintuc" virtualUrl="^~/tin-tuc-(.*)-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/ChiTietTinTuc.aspx?chuyenMucID=$1&amp;tinTucID=$2" ignoreCase="true"/>
+
+			<add name="vanban" virtualUrl="^~/van-ban-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/VanBan.aspx?loaiVanBanID=$1" ignoreCase="true"/>
+			<add name="chitietvanban" virtualUrl="^~/chi-tiet-van-ban-(.*)-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/ChiTietVanBan.aspx?loaiVanBanID=$1&amp;vanBanID=$2" ignoreCase="true"/>
+
+
+
+
+
+			<add name="video" virtualUrl="^~/video.aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/chitietvideo.aspx" ignoreCase="true"/>
+
+			<add name="chitietvideo" virtualUrl="^~/video-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/chitietvideo.aspx?Id=$1" ignoreCase="true"/>
+			<add name="album" virtualUrl="^~/album.aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/chitietalbum.aspx" ignoreCase="true"/>
+
+			<add name="chitietalbum" virtualUrl="^~/album-(.*).aspx" rewriteUrlParameter="ExcludeFromClientQueryString" destinationUrl="~/frontend/chitietalbum.aspx?Id=$1" ignoreCase="true"/>-->
+
+		</rewrites>
+	</urlrewritingnet>
+	
+	<connectionStrings>
+    <!--<add name="conString" connectionString="Data Source=172.16.22.245;Initial Catalog=db_banhang_v1;User Id=sa;Password=Abc1@3456; Pooling=False;"/>-->
+
+
+    <add name="conString" connectionString="Data Source=.\MSSQLSERVER2012;Initial Catalog=tuankhoi_db;User Id=tuankhoi_shop;Password=P@ssw0rd; Pooling=False;"/>
+
+
+	  <!--Cau hinh DB dong-->
+	  <!--<add name="conString" connectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\db_banhang_v1.MDF;Integrated Security=True;User Instance=True" providerName="System.Data.SqlClient"/>-->
+	  
+  </connectionStrings>
+  <system.web>
+    <httpRuntime maxRequestLength="2097151" requestValidationMode="2.0"/>
+    
+    
+    <sessionState mode="InProc" timeout="50"/>
+    <customErrors mode="Off" defaultRedirect="admincp/msg.htm"/>
+
+    <pages validateRequest="false" />
+    <!--<authorization>
+      <deny users="?"/>
+    </authorization>-->
+
+	  <authentication mode="Windows" />
+	  <httpModules>
+		  <!--url rewrite-->
+		  <add name="UrlRewriteModule" type="UrlRewritingNet.Web.UrlRewriteModule, UrlRewritingNet.UrlRewriter"/>
+	  </httpModules>
+	  
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+      </assemblies>
+    </compilation>
+
+   
+
+  </system.web>
+  <system.webServer>
+    <!--<modules runAllManagedModulesForAllRequests="true"/>-->
+	  
+	  <staticContent>
+		  <mimeMap fileExtension=".mp4" mimeType="video/mp4" />
+	  </staticContent>
+
+
+	  <modules>
+		  <!--url rewrite-->
+		  <remove name="UrlRewriteModule"/>
+		  <add name="UrlRewriteModule" type="UrlRewritingNet.Web.UrlRewriteModule, UrlRewritingNet.UrlRewriter"/>
+	  </modules>
+
+	  
+
+	 
+<validation validateIntegratedModeConfiguration="false" />
+
+  </system.webServer>
+
+	
+</configuration>
